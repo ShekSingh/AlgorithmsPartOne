@@ -21,7 +21,6 @@ public class PercolationStats {
     private int n;
     private int trials;
     private Percolation perc;
-    private double sumFraction;
 
 
     public PercolationStats(int n, int trials) {
