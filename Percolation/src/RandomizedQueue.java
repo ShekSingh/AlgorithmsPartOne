@@ -24,7 +24,8 @@ public class RandomizedQueue<Item> implements Iterable<Item>  {
 
     public void enqueue(Item item){
         if (n == a.length) resize(n*2);
-        a[tail++] = item;
+        a[tail] = item;
+        tail++;
         n++;
     }
 
@@ -50,16 +51,21 @@ public class RandomizedQueue<Item> implements Iterable<Item>  {
     }
 
     private void resize(int capacity) {
-
-        Item[] temp = (Item[]) new Object[capacity];
+        int oldLength = a.length;
+       Item[] temp = (Item[]) new Object[capacity];
         for (int i = 0; i < n; i++) {
            // if(a[i + head] != null) {
                 temp[i] = a[i + head];
             //}
         }
         a = temp;
-        head=0;
+
+        if(capacity > oldLength)
         tail = n;
+        else
+         tail= (head % capacity) - 1;
+
+        head=0;
 
     }
 
