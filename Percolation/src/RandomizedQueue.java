@@ -25,14 +25,19 @@ public class RandomizedQueue<Item> implements Iterable<Item>  {
 
 
     public void enqueue(Item item){
-
+        if (isEmpty())
+        {
+            tail = 0;
+            head = 0;
+        }
         if (n == a.length) resize(n*2);
         a[tail] = item;
         tail++;
+        n++;
 
     }
 
-    public Item dequeue(){
+    public Item dequeue() {
         if (isEmpty()) throw new NoSuchElementException("Stack underflow");
         Item item = a[head];
         a[head] = null;
@@ -64,7 +69,6 @@ public class RandomizedQueue<Item> implements Iterable<Item>  {
         for (int i = 0; i < n; i++) {
                 temp[i] = a[i + head];
                 tail++;
-
         }
         a = temp;
 
@@ -80,18 +84,18 @@ public class RandomizedQueue<Item> implements Iterable<Item>  {
   
 
     public Iterator<Item> iterator() {
-        return null;
+       return new RandomizedQueueIterator();
     }
 
     private class RandomizedQueueIterator implements Iterator<Item> {
         private int i;
-
+        private int j;
         public RandomizedQueueIterator() {
-            i = n-1;
+            i = head; j = tail;
         }
 
         public boolean hasNext() {
-            return i >= 0;
+            return i < tail;
         }
 
         public void remove() {
@@ -100,7 +104,7 @@ public class RandomizedQueue<Item> implements Iterable<Item>  {
 
         public Item next() {
             if (!hasNext()) throw new NoSuchElementException();
-            return a[i--];
+            return a[i++];
         }
     }
 
@@ -111,7 +115,15 @@ public class RandomizedQueue<Item> implements Iterable<Item>  {
             String item = StdIn.readString();
 
             if(item.equals("*")) {
-                StdOut.print(queue.sample() + " ");
+                Iterator<String> iterator = queue.iterator();
+                Iterator<String> iterator1 = queue.iterator();
+                while (iterator.hasNext()) {
+                    StdOut.print(" Itr " + iterator.next());
+
+                    StdOut.print(" Itr1 " + iterator1.next());
+
+                    System.out.println("---\n###");
+                }
             }
 
             else {
