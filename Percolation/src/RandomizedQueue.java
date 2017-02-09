@@ -2,6 +2,8 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.StdRandom;
+
 
 public class RandomizedQueue<Item> implements Iterable<Item>  {
 
@@ -23,9 +25,14 @@ public class RandomizedQueue<Item> implements Iterable<Item>  {
 
 
     public void enqueue(Item item){
+<<<<<<< HEAD
         if (n == a.length) resize(n*2);
         a[tail] = item;
         tail++;
+=======
+    if (n == a.length) resize(n*2);
+        a[tail++] = item;
+>>>>>>> origin/master
         n++;
     }
 
@@ -39,6 +46,9 @@ public class RandomizedQueue<Item> implements Iterable<Item>  {
         return item;
     }
 
+    public Item sample() {
+      return a[StdRandom.uniform(1, n + 1)];
+    }
 
 
     public boolean isEmpty() {
@@ -51,14 +61,21 @@ public class RandomizedQueue<Item> implements Iterable<Item>  {
     }
 
     private void resize(int capacity) {
+<<<<<<< HEAD
         int oldLength = a.length;
        Item[] temp = (Item[]) new Object[capacity];
+=======
+        head=0;
+        tail=0;
+        Item[] temp = (Item[]) new Object[capacity];
+>>>>>>> origin/master
         for (int i = 0; i < n; i++) {
-           // if(a[i + head] != null) {
                 temp[i] = a[i + head];
-            //}
+                tail++;
+
         }
         a = temp;
+<<<<<<< HEAD
 
         if(capacity > oldLength)
         tail = n;
@@ -66,6 +83,11 @@ public class RandomizedQueue<Item> implements Iterable<Item>  {
          tail= (head % capacity) - 1;
 
         head=0;
+=======
+       // tail=tail-1;
+
+
+>>>>>>> origin/master
 
     }
 
@@ -100,8 +122,17 @@ public class RandomizedQueue<Item> implements Iterable<Item>  {
         RandomizedQueue<String> queue = new RandomizedQueue<String>();
         while (!StdIn.isEmpty()) {
             String item = StdIn.readString();
-            if (!item.equals("-")) queue.enqueue(item);
-            else if (!queue.isEmpty()) StdOut.print(queue.dequeue() + " ");
+
+            if(item.equals("*")) {
+                StdOut.print(queue.sample() + " ");
+            }
+
+            else {
+
+                if (!item.equals("-")) queue.enqueue(item);
+                else if (!queue.isEmpty()) StdOut.print(queue.dequeue() + " ");
+
+            }
         }
         StdOut.println("(" + queue.size() + " left on stack)");
     }
