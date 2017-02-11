@@ -77,7 +77,7 @@ public class RandomizedQueue<Item> implements Iterable<Item>  {
         head=0;
 
     }
-  
+
 
     public Iterator<Item> iterator() {
         return null;
